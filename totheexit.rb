@@ -22,6 +22,16 @@ class GameWindow < Gosu::Window
 		
 		@blocks.each {|block| block.update}
 		
+		@blocks.each do |block|
+			if mouse_collision block
+				@level = 0
+				@started = false
+				@blocks = []
+				@exit_x = self.width/2
+				@exit_y = self.height/2
+			end
+		end
+		
 		if mouse_x > @exit_x and mouse_x < @exit_x + @exit_size and mouse_y > @exit_y and mouse_y < @exit_y + @exit_size
 			@started = true
 			@level += 1
@@ -58,9 +68,18 @@ class GameWindow < Gosu::Window
 			move_exit
 		end
 	end
+	
+	def mouse_collision obj
+		if mouse_x > obj.x and mouse_x < obj.x + obj.width and mouse_y > obj.y and mouse_y < obj.y + obj.height
+			return true
+		else
+			return false
+		end
+	end
 end
 
 class Block
+	attr_accessor :x, :y, :width, :height
 	def initialize window
 		@window = window
 		@image = Gosu::Image.new @window, 'media/block.png', true
