@@ -1,0 +1,7 @@
+This is a simple game, all you have to do is get your mouse to the exit.
+
+This was tested on Ruby 1.8.7 on Linux
+It requrie Gosu, which can be installed with:
+gem install gosu
+
+full instructions on installing gosu at: http://code.google.com/p/gosu/wiki/DocsOverview
