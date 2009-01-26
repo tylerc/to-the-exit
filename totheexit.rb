@@ -84,8 +84,7 @@ class Block
 		@window = window
 		@image = Gosu::Image.new @window, 'media/block.png', true
 		@factor = 1
-		@x = rand(@window.width)
-		@y = rand(@window.height)
+		place_block
 	end
 	
 	def draw
@@ -96,6 +95,20 @@ class Block
 		@factor += 0.01
 		@width = @image.width * @factor
 		@height = @image.height * @factor
+	end
+	
+	def place_block
+		@x = rand(@window.width)
+		@y = rand(@window.height)
+		# avoid placing the blocks outside the window
+		if @x < 0 or @y < 0 or @x + @image.width > @window.width or @y + @image.height > @window.height
+			place_block
+		end
+		
+		# avoid placing the blocks on the mouse
+		if (@x > @window.mouse_x-48 and @x < @window.mouse_x+48) and (@y > @window.mouse_y-48 and @y < @window.mouse_y+48)
+			place_block
+		end
 	end
 end
 
