@@ -19,8 +19,6 @@ class GameWindow < Gosu::Window
 	end
 	
 	def update
-		self.caption = "x: #{self.mouse_x}, y: #{self.mouse_y}, level: #{@level}"
-		
 		@blocks.each {|block| block.update}
 		
 		@blocks.each do |block|
