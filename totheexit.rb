@@ -7,6 +7,8 @@ class GameWindow < Gosu::Window
 	def initialize
 		super 640, 480, false
 		self.caption = "To the Exit!"
+		@level = 1
+		@background_image = Gosu::Image.new self, "media/exit.png", true
 	end
 	
 	def update
