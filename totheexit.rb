@@ -37,6 +37,9 @@ class GameWindow < Gosu::Window
 	def move_exit
 		@exit_x = rand(self.width)
 		@exit_y = rand(self.height)
+		if @exit_x < 0 or @exit_y < 0 or @exit_x + @exit_size > self.width or @exit_y + @exit_size > self.height
+			move_exit
+		end
 	end
 end
 
