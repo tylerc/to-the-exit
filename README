@@ -1,7 +1,13 @@
 == To The Exit!
 Writen By Tyler Church
 
-This is a simple game, all you have to do is get your mouse to the exit.
+This is a simple game, all you have to do is get your cursor to the 
+exit.
+
+The game can be run with the following command:
+	ruby totheexit.rb
+
+== Requirements
 
 This was tested on Ruby 1.8.7 on Linux
 It requrie Gosu, which can be installed with:
