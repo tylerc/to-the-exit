@@ -6,6 +6,7 @@ require 'gosu'
 class GameWindow < Gosu::Window
 	attr_accessor :exit_x, :exit_y, :exit_size
 	def initialize
+		# TODO: Load highscore and block speed from YAML
 		super 640, 480, false
 		self.caption = "To the Exit!"
 		@exit_image = Gosu::Image.new self, "media/exit.png", true
@@ -14,11 +15,14 @@ class GameWindow < Gosu::Window
 		@level = 0
 		@blocks = []
 		@started = false
+		@high_level = 0
 		@font_handle = Gosu::Font.new self, Gosu::default_font_name, 20
 		move_exit
 	end
 	
 	def update
+		self.caption = "To the Exit! - Level: #{@level}, High Score: #{@high_level}"
+		
 		@blocks.each {|block| block.update}
 		
 		@blocks.each do |block|
@@ -38,6 +42,9 @@ class GameWindow < Gosu::Window
 			@blocks = []
 			@level.times do
 				@blocks += [Block.new self]
+			end
+			if @high_level < @level
+				@high_level = @level
 			end
 		end
 	end
