@@ -8,13 +8,16 @@ class GameWindow < Gosu::Window
 		super 640, 480, false
 		self.caption = "To the Exit!"
 		@level = 1
-		@background_image = Gosu::Image.new self, "media/exit.png", true
+		@exit_image = Gosu::Image.new self, "media/exit.png", true
+		@cursor = Gosu::Image.new self, "media/Cursor.png", false
 	end
 	
 	def update
+		self.caption = "x: #{self.mouse_x}, y: #{self.mouse_y}"
 	end
 	
 	def draw
+		@cursor.draw mouse_x, mouse_y, ZOrder::Mouse
 	end
 	
 	def button_down id
@@ -25,7 +28,7 @@ class GameWindow < Gosu::Window
 end
 
 module ZOrder
-	Background, Objects = *0..1
+	Background, Objects, Mouse = *0..2
 end
 
 window = GameWindow.new
