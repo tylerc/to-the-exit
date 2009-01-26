@@ -4,6 +4,7 @@ require 'rubygems'
 require 'gosu'
 
 class GameWindow < Gosu::Window
+	attr_accessor :exit_x, :exit_y, :exit_size
 	def initialize
 		super 640, 480, false
 		self.caption = "To the Exit!"
@@ -33,13 +34,13 @@ class GameWindow < Gosu::Window
 		end
 		
 		if mouse_x > @exit_x and mouse_x < @exit_x + @exit_size and mouse_y > @exit_y and mouse_y < @exit_y + @exit_size
+			move_exit
 			@started = true
 			@level += 1
 			@blocks = []
 			@level.times do
 				@blocks += [Block.new self]
 			end
-			move_exit
 		end
 	end
 	
@@ -103,10 +104,11 @@ class Block
 		# avoid placing the blocks outside the window
 		if @x < 0 or @y < 0 or @x + @image.width > @window.width or @y + @image.height > @window.height
 			place_block
-		end
-		
 		# avoid placing the blocks on the mouse
-		if (@x > @window.mouse_x-48 and @x < @window.mouse_x+48) and (@y > @window.mouse_y-48 and @y < @window.mouse_y+48)
+		elsif (@x > @window.mouse_x-48 and @x < @window.mouse_x+48) and (@y > @window.mouse_y-48 and @y < @window.mouse_y+48)
+			place_block
+		# avoid placing the blocks on the exit
+		elsif (@x > @window.exit_x-32 and @x < @window.exit_x+@window.exit_size+32) and (@y > @window.exit_y-32 and @y < @window.exit_y+@window.exit_size+32)
 			place_block
 		end
 	end
