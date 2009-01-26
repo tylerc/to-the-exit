@@ -10,18 +10,23 @@ class GameWindow < Gosu::Window
 		@exit_image = Gosu::Image.new self, "media/exit.png", true
 		@cursor = Gosu::Image.new self, "media/Cursor.png", false
 		@exit_size = @exit_image.width
-		@level = 1
+		@level = 0
 		@blocks = []
+		@started = false
+		@font_handle = Gosu::Font.new self, Gosu::default_font_name, 20
 		move_exit
 	end
 	
 	def update
 		self.caption = "x: #{self.mouse_x}, y: #{self.mouse_y}, level: #{@level}"
+		
 		@blocks.each {|block| block.update}
+		
 		if mouse_x > @exit_x and mouse_x < @exit_x + @exit_size and mouse_y > @exit_y and mouse_y < @exit_y + @exit_size
+			@started = true
 			@level += 1
 			@blocks = []
-			@level.times do |x|
+			@level.times do
 				@blocks += [Block.new self]
 			end
 			move_exit
@@ -32,6 +37,12 @@ class GameWindow < Gosu::Window
 		@blocks.each {|block| block.draw}
 		@cursor.draw mouse_x, mouse_y, ZOrder::Mouse
 		@exit_image.draw @exit_x, @exit_y, ZOrder::Objects
+		if @started == false
+			@font_handle.draw("To The Exit!", self.width/2-@font_handle.text_width("To The Exit!", 4)/2, 1, ZOrder::UI, 4, 4)
+			@font_handle.draw("Get Your Mouse to the Exit!", self.width/2-@font_handle.text_width("Get Your Mouse to the Exit!", 2)/2, 80, ZOrder::UI, 2, 2)
+			@font_handle.draw("Don't Touch the Red Blocks!", self.width/2-@font_handle.text_width("Don't Touch the Red Blocks!", 2)/2, 140, ZOrder::UI, 2, 2)
+			@font_handle.draw("Touch the Exit to Begin", self.width/2-@font_handle.text_width("Touch the Exit to Begin")/2, self.height-20, ZOrder::UI)
+		end
 	end
 	
 	def button_down id
@@ -70,7 +81,7 @@ class Block
 end
 
 module ZOrder
-	Background, Objects, Mouse = *0..2
+	Background, Objects, Mouse, UI = *0..3
 end
 
 window = GameWindow.new
