@@ -1,11 +1,22 @@
 == To The Exit!
 Writen By Tyler Church
+If you have any questions or comments, email me at: tylertrain@yahoo.com
 
 This is a simple game, all you have to do is get your cursor to the 
 exit.
 
 The game can be run with the following command:
 	ruby totheexit.rb
+
+== Changing the game
+The folder name 'media' contains all sprites used in the game, you can change them
+as you wish
+
+Also settings.yml contains your high score, and the speed at which the
+blocks change size. You can change them to your hearts content
+
+If you would like more control, you can grab the souce code from 
+www.github.com/tylerc/to-the-exit
 
 == Requirements
 
