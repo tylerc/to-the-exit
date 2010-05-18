@@ -43,7 +43,7 @@ class GameWindow < Gosu::Window
 			@level += 1
 			@blocks = []
 			@level.times do
-				@blocks += [Block.new self]
+				@blocks += [Block.new(self)]
 			end
 			if @data['high_level'] < @level
 				@data['high_level'] = @level
